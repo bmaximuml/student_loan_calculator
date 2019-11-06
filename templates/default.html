@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-gb" class="has-navbar-fixed-top">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {{ title }}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bulma/css/bulma.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+    <script type='text/javascript' src='{{ url_for('static', filename='scripts.js') }}'></script>
+</head>
+<body>
+<nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+    {% block nav %}
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img src="{{ url_for('static', filename='assets/logo.png') }}"
+                     alt="{{ title }} logo">
+            </a>
+            <a class="navbar-item" href="/">
+                <strong>{{ title }}</strong>
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="main_navbar">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="main_navbar" class="navbar-menu slideout">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/#section_1">
+                    Section 1
+                </a>
+                <a class="navbar-item" href="/#section_2">
+                    Section 2
+                </a>
+            </div>
+        </div>
+    {% endblock %}
+</nav>
+<section>
+    {% block content %}{% endblock %}
+</section>
+<footer class="footer hero is-paddingless {% block footer_colour %}is-dark{% endblock %}">
+    <div class="content has-text-centered hero-body">
+        <p>
+            <strong class="has-text-light">{{ title }}</strong> &#169; {{ year }}
+        </p>
+    </div>
+</footer>
+</body>
+</html>
+

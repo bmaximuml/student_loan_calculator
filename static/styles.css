@@ -1,0 +1,73 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.column {
+    height: 100%;
+}
+
+.notification {
+    margin: 0.75rem;
+    padding: 1rem;
+}
+
+.columns > .column > .notification {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+a.button {
+    white-space: unset;
+    height: auto;
+}
+
+div.tags > a {
+    margin-right: 0.5rem;
+}
+
+div.columns.is-mobile > div.column.is-hidden-tablet > div.notification {
+    padding: 0.5rem;
+}
+
+div.navbar-brand {
+    background-color: inherit;
+    z-index: 20;
+}
+
+nav > div#main_navbar {
+    position: relative;
+    z-index: 10;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+nav > div#main_navbar.slideout {
+    animation-name: slideout;
+}
+
+nav > div#main_navbar.slidein {
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        margin-top: -100%;
+    }
+    to {
+        margin-top: 0;
+    }
+}
+
+@keyframes slideout {
+    from {
+        margin-top: 0;
+    }
+    to {
+        margin-top: -100%;
+    }
+}
+
+section > div.hero {
+    position: relative;
+    z-index: 0;
+}
