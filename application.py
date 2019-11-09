@@ -4,9 +4,9 @@ from exceptions import EnvironmentUnsetError
 from flask import Flask, render_template
 from os import environ
 from smtplib import SMTP_SSL
-from wtforms import Form, StringField, SubmitField, TextAreaField
+from wtforms import Form, StringField, SubmitField, TextAreaField, FloatField, DateField
 from wtforms.fields.html5 import EmailField
-from wtforms.validators import DataRequired, Email, length
+from wtforms.validators import DataRequired, Email, length, NumberRange
 
 from models import db
 
@@ -42,6 +42,65 @@ def create_application():
 
 
 application = create_application()
+
+
+class LoanInformationForm(Form):
+    balance = FloatField(
+        'Current Loan Balance',
+        validators=[
+            DataRequired(),
+            NumberRange(
+                min=0.0,
+                max=999999999,
+                message="Balance cannot be less than £0 or greater than £999,999,999"
+            )
+        ],
+        render_kw={
+            "placeholder": "Current Loan Balance",
+            "class": "input",
+            "maxlength": 9,
+            "type": "number",
+            "min": 0,
+            "max": 999999999,
+            "step": 0.01,
+        }
+    )
+    interest = FloatField(
+        'Annual Interest Rate',
+        validators=[
+            DataRequired(),
+            NumberRange(
+                min=0.0,
+                max=999.99,
+                message="Interest cannot be less than 0% or greater than 999.99%"
+            )
+        ],
+        render_kw={
+            "placeholder": "Annual Interest Rate",
+            "class": "input",
+            "maxlength": 5,
+            "value": 5.4,
+            "type": "number",
+            "min": 0,
+            "max": 999.99,
+            "step": 0.01,
+        }
+    )
+    graduation = DateField(
+        'Graduation Date',
+        validators=[DataRequired()],
+        render_kw={
+            "placeholder": "Graduation Date",
+            "class": "input",
+            "type": "date",
+        }
+    )
+    submit = SubmitField(
+        'Send',
+        render_kw={
+            "class": "button is-link"
+        }
+    )
 
 
 class ContactForm(Form):
