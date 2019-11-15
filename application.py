@@ -1,13 +1,14 @@
 from datetime import datetime
 from email.message import EmailMessage
 from exceptions import EnvironmentUnsetError
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, request, url_for
 from os import environ
 from smtplib import SMTP_SSL
 from wtforms import Form, StringField, SubmitField, TextAreaField, FloatField, DateField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, Email, length, NumberRange
 
+from loan import calculate_loan, calculate_totals
 from models import db
 
 
@@ -147,6 +148,24 @@ class ContactForm(Form):
 @application.route('/', methods=['POST', 'GET'])
 def about():
     form = LoanInformationForm(request.form)
+    if request.method == 'POST':
+        if form.validate():
+            # return redirect(url_for('loan'))
+            return render_template(
+                'loan.html',
+                title=environ['WFB_PROJECT_NAME'],
+                year=datetime.now().year,
+                information=calculate_loan(
+                    form.balance.data,
+                    form.interest.data,
+                    form.graduation.data
+                ),
+                amount_totals=calculate_totals(
+                    form.balance.data,
+                    form.interest.data,
+                    form.graduation.data
+                )
+            )
     return render_template(
         'index.html',
         title=environ['WFB_PROJECT_NAME'],
