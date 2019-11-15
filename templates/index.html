@@ -4,14 +4,39 @@
     <a id="section_1"></a>
     <div class="hero is-dark">
         <div class="hero-body">
-
-        </div>
-    </div>
-
-    <a id="section_2"></a>
-    <div class="hero is-info">
-        <div class="hero-body">
-
+            <h1 class="title">{{ sections[0] }}</h1>
+            <form method="post" action="/" name="loan">
+                {{ form.csrf_token }}
+                <div class="field">
+                    <p class="control has-icons-left">
+                        {{ form.balance }}
+                    </p>
+                    {% if form.balance.errors %}
+                        <ul class="errors">{% for error in form.balance.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        {{ form.interest }}
+                    </p>
+                    {% if form.interest.errors %}
+                        <ul class="errors">{% for error in form.interest.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        {{ form.graduation }}
+                    </p>
+                    {% if form.graduation.errors %}
+                        <ul class="errors">{% for error in form.graduation.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <div class="control">
+                        {{ form.submit }}
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}

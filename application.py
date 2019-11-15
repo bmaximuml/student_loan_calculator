@@ -146,10 +146,12 @@ class ContactForm(Form):
 
 @application.route('/', methods=['POST', 'GET'])
 def about():
+    form = LoanInformationForm(request.form)
     return render_template(
         'index.html',
         title=environ['WFB_PROJECT_NAME'],
         year=datetime.now().year,
+        form=form,
     )
 
 
