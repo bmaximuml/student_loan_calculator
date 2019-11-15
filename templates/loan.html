@@ -1,33 +1,26 @@
-{% extends 'default.html' %}
-{% set sections = ['Loan Information'] %}
+{% extends 'sections.html' %}
 
-{% block content %}
-    <a id="{{ sections[0]|lower()|replace(' ', '_') }}"></a>
-    <div class="hero is-dark">
-        <div class="hero-body">
-            <h1 class="title">{{ sections[0] }}</h1>
-        </div>
-        <div class="notification is-link">
-            <p>Current Loan Balance: &pound;{{ information.initial_balance }}</p>
-            <p>Annual Interest Rate: {{ information.interest }}&#37;</p>
-            <p>Graduation Date: {{ information.graduation }}</p>
-            <p>Total Paid: &pound;{{ information.total_paid|round(2, 'ceil') }}</p>
-            <p>Years to pay off loan: {{ information.years_to_pay_off }}</p>
-            <p>Final Loan Balance: {{ information.final_balance }}</p>
-        </div>
-        <div class="notification is-danger">
-            <table class="table">
-                {% for key, value in amount_totals.items() %}
-                    <tr>
-                        <td>
-                            <span>&pound;{{ key|e }}</span>
-                        </td>
-                        <td>
-                            <span>&pound;{{ value|round(2, 'ceil')|e }}</span>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
+{% block section0_content %}
+    <div class="notification is-link">
+        <p>Current Loan Balance: &pound;{{ information.initial_balance }}</p>
+        <p>Annual Interest Rate: {{ information.interest }}&#37;</p>
+        <p>Graduation Date: {{ information.graduation }}</p>
+        <p>Total Paid: &pound;{{ information.total_paid|round(2, 'ceil') }}</p>
+        <p>Years to pay off loan: {{ information.years_to_pay_off }}</p>
+        <p>Final Loan Balance: {{ information.final_balance }}</p>
+    </div>
+    <div class="notification is-danger">
+        <table class="table">
+            {% for key, value in amount_totals.items() %}
+                <tr>
+                    <td>
+                        <span>&pound;{{ key|e }}</span>
+                    </td>
+                    <td>
+                        <span>&pound;{{ value|round(2, 'ceil')|e }}</span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 {% endblock %}
